@@ -1,4 +1,4 @@
-# ExamBot – Autonomous Exam Assistant Robot
+# 🤖 ExamBot – Autonomous Exam Assistant Robot
 
 <p align="center">
   <img src="images/ExamBot-Logo.png" alt="ExamBot logo" width="420">
@@ -12,25 +12,29 @@ ExamBot is an autonomous exam-assistant robot project designed to support examin
 
 This repository contains the current ESP32 robot firmware, individual component test sketches, and project diagrams.
 
-> **Implementation status:** The main firmware currently implements line-following navigation, ultrasonic obstacle stopping, RFID UID scanning, paper-tray state detection, and ESP-NOW activation reception. The complete planned examination workflow is not yet implemented. In particular, the current code does not record attendance, map RFID tags to students/desks, wait specifically for paper removal before proceeding, implement scheduled exam start, process Bluetooth late-student requests, or automatically return to its starting point.
+> **🚧 Implementation status:** The main firmware currently implements line-following navigation, ultrasonic obstacle stopping, RFID UID scanning, paper-tray state detection, and ESP-NOW activation reception. The complete planned examination workflow is not yet implemented. In particular, the current code does not record attendance, map RFID tags to students/desks, wait specifically for paper removal before proceeding, implement scheduled exam start, process Bluetooth late-student requests, or automatically return to its starting point.
 
-## Project diagrams
+---
+
+## 📐 Project diagrams
 
 ### System Overview
 
-![ExamBot system block diagram](images/System-Overview.png)
+![ExamBot system overview diagram](images/System-Overview.png)
 
 ### System Block Diagram
 
 This diagram represents the hardware and functions present in the current firmware.
 
-![ExamBot current system block diagram](images/Block-Diagram.png)
+![ExamBot system block diagram](images/Block-Diagram.png)
 
 ### System Workflow
 
-![ExamBot current workflow diagram](images/System-Workflow.png)
+![ExamBot workflow diagram](images/System-Flowchart.png)
 
-## Current implemented features
+---
+
+## ⚙️ Current implemented features
 
 - **ESP32 control:** Reads sensors, runs the navigation logic, and controls the motors.
 - **Black-line following:** Uses three IR line sensors (left, center, and right) to adjust the robot's movement.
@@ -41,7 +45,9 @@ This diagram represents the hardware and functions present in the current firmwa
 - **ESP-NOW reception:** Receives a message containing `tableID` and `requestActive`. When `requestActive` is true, it sets the robot's `systemActive` flag and prints the target table ID. The current navigation logic does not yet navigate to that specific table.
 - **Serial debugging:** Prints sensor readings and distance/tray information approximately every 400 ms, as well as RFID and tray events.
 
-## Hardware used in the current firmware
+---
+
+## 🔌 Hardware used in the current firmware
 
 | Component | Purpose | ESP32 connection |
 |---|---|---|
@@ -55,7 +61,9 @@ This diagram represents the hardware and functions present in the current firmwa
 
 Check the wiring and voltage requirements of your exact modules and motor driver before powering the circuit. The firmware pin definitions are the source of truth for the current sketch.
 
-## Repository contents
+---
+
+## 📁 Repository contents
 
 ```text
 Robot-ESP32-Code/Robotics-ESP32/Robotics-ESP32.ino
@@ -72,7 +80,9 @@ Images/
 ```
 Project logo, system diagrams, and workflow diagram used in the documentation.
 
-## Software and libraries
+---
+
+## 📚 Software and libraries
 
 - Arduino IDE
 - ESP32 Arduino Core
@@ -84,7 +94,9 @@ Project logo, system diagrams, and workflow diagram used in the documentation.
 
 The ESP32 Arduino Core provides the ESP32-specific Wi-Fi, ESP-NOW, GPIO, ADC, and LEDC PWM functionality. Install a compatible ESP32 board package and the MFRC522 library through the Arduino IDE before compiling.
 
-## Setup and upload
+---
+
+## 🚀 Setup and upload
 
 1. Install the Arduino IDE.
 2. Install the ESP32 board package using Boards Manager.
@@ -97,7 +109,7 @@ The ESP32 Arduino Core provides the ESP32-specific Wi-Fi, ESP-NOW, GPIO, ADC, an
 9. Open Serial Monitor at **115200 baud** to view sensor readings and debug messages.
 10. Test each component safely, preferably using the relevant sketch in `Component-Test-Codes/` before running the integrated robot.
 
-### Important ESP-NOW note
+### 📡 Important ESP-NOW note
 
 The robot firmware is configured in Wi-Fi station mode and registers an ESP-NOW receive callback. The transmitting ESP32 must use a compatible message structure and ESP-NOW configuration. The current message structure is:
 
@@ -110,7 +122,9 @@ typedef struct struct_message {
 
 The receiver currently checks `requestActive` and activates the system. It does not use `tableID` for desk-specific route selection yet.
 
-## Current navigation behavior
+---
+
+## 🧭 Current navigation behavior
 
 The main loop repeatedly reads the three line sensors and ultrasonic distance, checks the tray sensor, and scans for RFID cards.
 
@@ -125,7 +139,9 @@ The main loop repeatedly reads the three line sensors and ultrasonic distance, c
 
 The exact response depends on the threshold values and sensor orientation. Calibrate the thresholds for the actual floor, line material, lighting, and sensor modules.
 
-## Planned system features
+---
+
+## 📋 Planned system features
 
 The broader project concept includes the following features, which should be treated as planned work unless implemented in a later firmware version:
 
@@ -137,7 +153,9 @@ The broader project concept includes the following features, which should be tre
 - Return to the initial position after completing the route.
 - Accept late-student requests from desk buttons and navigate to the requested desk.
 
-## Safety and testing
+---
+
+## 🛡️ Safety and testing
 
 - Test with the wheels raised before the first floor test.
 - Keep hands, cables, and objects clear of the wheels and motor mechanisms.
@@ -146,7 +164,9 @@ The broader project concept includes the following features, which should be tre
 - Confirm the IR sensor thresholds under the actual operating conditions.
 - Do not rely on RFID UID printing as attendance recording; attendance storage and student verification must be implemented separately.
 
-## Future improvements
+---
+
+## 🔮 Future improvements
 
 - Add student-ID validation and attendance storage.
 - Implement desk identification and route/state management.
@@ -155,3 +175,15 @@ The broader project concept includes the following features, which should be tre
 - Add Bluetooth or another suitable desk-request communication method if required by the final design.
 - Implement route completion and return-to-base behavior.
 - Add robust communication validation, timeout handling, and recovery behavior.
+
+---
+
+## 📌 License
+
+This project is developed for academic and demonstration purposes.
+
+---
+
+<div align="right">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=Sithumini-Anuhansi.ExamBot-Exam-Assistant-Robot&left_text=Views" />
+</div>
